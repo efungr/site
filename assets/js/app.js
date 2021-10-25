@@ -29609,77 +29609,111 @@ function isMobileTablet() {
   })(navigator.userAgent || navigator.vendor || window.opera);
 
   return check;
+} // Set Copyright Year
+
+
+function setCopyright() {
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#year').html(new Date().getFullYear());
+} ///////// Smooth Browser Scroll ////////////
+
+
+function initSmoothScroll() {
+  new SmoothScroll(document, 120, 12);
+}
+
+function SmoothScroll(target, speed, smooth) {
+  if (target === document) target = document.scrollingElement || document.documentElement || document.body.parentNode || document.body; // cross browser support for document scrolling
+
+  var moving = false;
+  var pos = target.scrollTop;
+  var frame = target === document.body && document.documentElement ? document.documentElement : target; // safari is the new IE
+
+  target.addEventListener('mousewheel', scrolled, {
+    passive: false
+  });
+  target.addEventListener('DOMMouseScroll', scrolled, {
+    passive: false
+  });
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btt-link').on('click', function (e) {
+    e.preventDefault();
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body').animate({
+      scrollTop: jquery__WEBPACK_IMPORTED_MODULE_0___default()('#home').offset().top
+    }, 1000, function () {
+      pos = 0;
+      if (!moving) update();
+    });
+  });
+
+  function scrolled(e) {
+    e.preventDefault(); // disable default scrolling
+
+    var delta = normalizeWheelDelta(e);
+    pos += -delta * speed;
+    pos = Math.max(0, Math.min(pos, target.scrollHeight - frame.clientHeight)); // limit scrolling
+
+    if (!moving) update();
+  }
+
+  function normalizeWheelDelta(e) {
+    if (e.detail) {
+      if (e.wheelDelta) return e.wheelDelta / e.detail / 40 * (e.detail > 0 ? 1 : -1); // Opera
+      else return -e.detail / 3; // Firefox
+    } else return e.wheelDelta / 120; // IE,Safari,Chrome
+
+  }
+
+  function update() {
+    moving = true;
+    var delta = (pos - target.scrollTop) / smooth;
+    target.scrollTop += delta;
+    if (Math.abs(delta) > 0.5) requestFrame(update);else moving = false;
+  }
+
+  var requestFrame = function () {
+    // requestAnimationFrame cross browser
+    return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (func) {
+      window.setTimeout(func, 1000 / 50);
+    };
+  }();
+}
+
+function animationCallback($element, callback) {
+  $element.bind('oanimationend animationend webkitAnimationEnd', function () {
+    callback();
+  });
 }
 
 jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).ready(function () {
   jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).foundation();
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('load', function () {
+    var loadingBar = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#loader .bar');
+    var loader = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#loader');
+    var loadingSlide = gsap_dist_gsap__WEBPACK_IMPORTED_MODULE_2__["gsap"].to('.loading-screen', {
+      duration: 0.8,
+      height: 0,
+      paused: true,
+      onComplete: function onComplete() {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('html').removeClass('loading');
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#loader').hide();
+      }
+    });
+
+    var loadingFinished = function loadingFinished() {
+      loadingSlide.play();
+    };
+
+    loadingBar.css({
+      'animation-name': 'progress-bar'
+    });
+    animationCallback(loadingBar, loadingFinished);
+  });
+  initSmoothScroll();
+  setCopyright();
   var isMobile = isMobileTablet();
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('.nav-link.info').on('click', function (e) {
     e.preventDefault();
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).toggleClass('active');
-  }); ///////// Smooth Browser Scroll ////////////
-
-  function initSmoothScroll() {
-    new SmoothScroll(document, 120, 12);
-  }
-
-  function SmoothScroll(target, speed, smooth) {
-    if (target === document) target = document.scrollingElement || document.documentElement || document.body.parentNode || document.body; // cross browser support for document scrolling
-
-    var moving = false;
-    var pos = target.scrollTop;
-    var frame = target === document.body && document.documentElement ? document.documentElement : target; // safari is the new IE
-
-    target.addEventListener('mousewheel', scrolled, {
-      passive: false
-    });
-    target.addEventListener('DOMMouseScroll', scrolled, {
-      passive: false
-    });
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.btt-link').on('click', function (e) {
-      e.preventDefault();
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body').animate({
-        scrollTop: jquery__WEBPACK_IMPORTED_MODULE_0___default()('#home').offset().top
-      }, 1000, function () {
-        pos = 0;
-        if (!moving) update();
-      });
-    });
-
-    function scrolled(e) {
-      e.preventDefault(); // disable default scrolling
-
-      var delta = normalizeWheelDelta(e);
-      pos += -delta * speed;
-      pos = Math.max(0, Math.min(pos, target.scrollHeight - frame.clientHeight)); // limit scrolling
-
-      if (!moving) update();
-    }
-
-    function normalizeWheelDelta(e) {
-      if (e.detail) {
-        if (e.wheelDelta) return e.wheelDelta / e.detail / 40 * (e.detail > 0 ? 1 : -1); // Opera
-        else return -e.detail / 3; // Firefox
-      } else return e.wheelDelta / 120; // IE,Safari,Chrome
-
-    }
-
-    function update() {
-      moving = true;
-      var delta = (pos - target.scrollTop) / smooth;
-      target.scrollTop += delta;
-      if (Math.abs(delta) > 0.5) requestFrame(update);else moving = false;
-    }
-
-    var requestFrame = function () {
-      // requestAnimationFrame cross browser
-      return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (func) {
-        window.setTimeout(func, 1000 / 50);
-      };
-    }();
-  }
-
-  initSmoothScroll();
+  });
 
   if (!isMobile) {
     // Move the cursor
@@ -29759,14 +29793,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).ready(function () {
       },
       yPercent: -50
     });
-  } // Set Copyright Year
-
-
-  function setCopyright() {
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#year').html(new Date().getFullYear());
   }
-
-  setCopyright();
 });
 
 /***/ }),
