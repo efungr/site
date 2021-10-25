@@ -29685,28 +29685,6 @@ function animationCallback($element, callback) {
 
 jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).ready(function () {
   jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).foundation();
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('load', function () {
-    var loadingBar = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#loader .bar');
-    var loader = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#loader');
-    var loadingSlide = gsap_dist_gsap__WEBPACK_IMPORTED_MODULE_2__["gsap"].to('.loading-screen', {
-      duration: 0.8,
-      height: 0,
-      paused: true,
-      onComplete: function onComplete() {
-        jquery__WEBPACK_IMPORTED_MODULE_0___default()('html').removeClass('loading');
-        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#loader').hide();
-      }
-    });
-
-    var loadingFinished = function loadingFinished() {
-      loadingSlide.play();
-    };
-
-    loadingBar.css({
-      'animation-name': 'progress-bar'
-    });
-    animationCallback(loadingBar, loadingFinished);
-  });
   initSmoothScroll();
   setCopyright();
   var isMobile = isMobileTablet();
@@ -29794,6 +29772,29 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).ready(function () {
       yPercent: -50
     });
   }
+
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('load', function () {
+    var loadingBar = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#loader .bar');
+    var loader = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#loader');
+    var loadingSlide = gsap_dist_gsap__WEBPACK_IMPORTED_MODULE_2__["gsap"].to('.loading-screen', {
+      duration: 0.8,
+      height: 0,
+      paused: true,
+      onComplete: function onComplete() {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('html').removeClass('loading');
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#loader').hide();
+      }
+    });
+
+    var loadingFinished = function loadingFinished() {
+      loadingSlide.play();
+    };
+
+    loadingBar.css({
+      'animation-name': 'progress-bar'
+    });
+    animationCallback(loadingBar, loadingFinished);
+  });
 });
 
 /***/ }),
