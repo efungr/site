@@ -29753,8 +29753,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).ready(function () {
       });
     };
 
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.cursor').removeClass('hide'); //////// Cursor Section ////////////
-
+    //////// Cursor Section ////////////
     var $stroke = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.cursor-stroke');
     var $ball = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.cursor-ball');
     var $hoverables = jquery__WEBPACK_IMPORTED_MODULE_0___default()('a'); // Listeners
@@ -29762,6 +29761,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).ready(function () {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').on('mousemove', onMouseMove);
     $hoverables.on('mouseenter', onMouseHover);
     $hoverables.on('mouseleave', onMouseHoverOut);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.cursor').removeClass('hide');
   } // GSAP
 
 
