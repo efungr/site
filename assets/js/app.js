@@ -29714,6 +29714,19 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).ready(function () {
     e.preventDefault();
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).toggleClass('active');
   });
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.landing-nav a').on('click', function (e) {
+    e.preventDefault();
+
+    if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).hasClass('cool-link')) {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).addClass('hide-theme');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.warm-link').removeClass('hide-theme');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('html').addClass('cool');
+    } else {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).addClass('hide-theme');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.cool-link').removeClass('hide-theme');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('html').removeClass('cool');
+    }
+  });
 
   if (!isMobile) {
     // Move the cursor
